@@ -1,7 +1,5 @@
 from django.db import models
 
-from job_posting.models import Post
-
 class User(models.Model):
     name = models.CharField(max_length=20)
 
@@ -15,8 +13,15 @@ class Company(models.Model):
         db_table = 'company'
 
 class Resume(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    user = models.ManyToManyField(User, through='UserResume')
+    post = models.ForeignKey('post.Post', on_delete=models.CASCADE)
 
     class Meta:
         db_table = 'resume'
+
+class UserResume(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    resume = models.ForeignKey(Resume, on_delete=models.CASCADE)
+
+    class Meta:
+        db_table = 'user_resume'
