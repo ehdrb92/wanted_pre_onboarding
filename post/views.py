@@ -1,4 +1,5 @@
 import json
+from turtle import position
 
 from django.views import View
 from django.http import JsonResponse
@@ -8,7 +9,9 @@ from user.models import Company
 
 class PostView(View):
     def get(self, request):
-        posts = Post.objects.all()
+        search = request.GET.get('search', '')
+
+        posts = Post.objects.filter(position__icontains=search)
 
         res = [{
             'company_id' : post.company.id,

@@ -16,7 +16,7 @@ MySQL==8.0.30
 
 ## 과제 추가 구현 사항
 
-- [ ] 채용공고 검색
+- [x] 채용공고 검색
 - [x] 채용공고 지원
 - [ ] 유닛 테스트 구현
 
@@ -282,4 +282,33 @@ MySQL==8.0.30
 {
     "message": "user_not_exist"
 }
+```
+
+* 채용공고 검색
+
+포지션 키워드를 기준으로 공고를 검색하도록 구현하였습니다. 요청 키워드는 query parameter를 이용해서 search 매개변수에 담아 요청합니다.
+
+```
+# API: (GET)http://localhost:8000/post?search=backend
+
+# 응답 예시
+
+[
+    {
+        "company_id": 3,
+        "country": "대한민국",
+        "region": "서울",
+        "position": "Backend",
+        "compensation": 1000000,
+        "skill": "Java"
+    },
+    {
+        "company_id": 1,
+        "country": "대한민국",
+        "region": "경기도 성남",
+        "position": "Backend",
+        "compensation": 1000000,
+        "skill": "Java"
+    }
+]
 ```
