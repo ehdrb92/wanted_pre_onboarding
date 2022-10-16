@@ -123,7 +123,7 @@ MySQL==8.0.30
     "message": "success"
 }
 
-# 응답 예시 (실패)
+# 응답 예시 (KeyError)
 
 {
     "messagae": "key_error"
@@ -156,13 +156,13 @@ MySQL==8.0.30
     "message": "success"
 }
 
-# 응답 예시 (실패)
+# 응답 예시 (공고 x)
 
 {
     "message": "post_not_exist"
 }
 
-# 응답 예시 (실패)
+# 응답 예시 (KeyError)
 
 {
     "messagae": "key_error"
@@ -191,13 +191,13 @@ MySQL==8.0.30
     "message": "success"
 }
 
-# 응답 예시 (실패)
+# 응답 예시 (공고 x)
 
 {
     "message": "post_not_exist"
 }
 
-# 응답 예시 (실패)
+# 응답 예시 (KeyError)
 
 {
     "messagae": "key_error"
@@ -227,9 +227,59 @@ MySQL==8.0.30
     "other_posting": [3, 6, 7]
 }
 
-응답 예시 (실패)
+응답 예시 (공고 x)
 
 {
     "message": "post_not_exist"
+}
+```
+
+* 공고 지원 구현
+
+    지원하고자 하는 공고와 지원 유저의 id 값을 전달하여 공고에 지원하도록 구현하였습니다.
+
+    * 필수 키 값이 전달되지 않을 시 key_error 메세지를 반환합니다.
+    * 공고에 이미 지원한 유저의 경우 already applied를 반환합니다.
+    * 지원하려는 공고가 존재하지 않을경우 post_not_exist를 반환합니다.
+    * 지원하려는 유저가 존재하지 않을경우 user_not_exist를 반환합니다.
+
+```
+# API: (POST)http://localhost:8000/user/apply
+
+# 요청 예시
+
+{
+    "post_id" : 3,
+    "user_id" : 1
+}
+
+# 응답 예시 (성공)
+
+{
+    "message": "success"
+}
+
+# 응답 예시 (KeyError)
+
+{
+    "message": "key_error"
+}
+
+# 응답 예시 (이미 지원 했을 때)
+
+{
+    "message": "already applied"
+}
+
+# 응답 예시 (공고 x)
+
+{
+    "message": "post_not_exist"
+}
+
+# 응답 예시 (유저 x)
+
+{
+    "message": "user_not_exist"
 }
 ```
